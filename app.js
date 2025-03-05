@@ -4,12 +4,24 @@ import bcrypt from "bcrypt"
 const app = express()
 const port = 3000;
 
+app.use(express.json()) //middleware
+
 // array in memory becuse I will later using database to save user information and password
 const users = [];
 
-app.use(express.json()) //middleware
 
-app.post("/register", async (req, res) => {
+app.post('/register', (req, res) => {
+    const {email, password } = req.body;
+
+    //Check if email already exists
+    if (users.find(user => user.email === email)){
+        return res.status(400).send('Email already registered');
+    }
+    // Add the new user
+    users.push({email, password});
+    res.status(200).send('User registered successfully');
+})
+/*app.post("/register", async (req, res) => {
     try {
         const {email, password} = req.body
         //Check the user if exists
@@ -27,7 +39,7 @@ app.post("/register", async (req, res) => {
         res.status(500).send({message: err.message})
         
     }
-})
+})*/
 
 //login function
 app.post('/login', async(req, res) => {
@@ -37,7 +49,13 @@ app.post('/login', async(req, res) => {
         const findUser = users.find((data) => email == data.email )
         if(!findUser){
             return res.status(400).send("Username or password already exists!")
+        } else {
+        const newUser = new User({ email, password });
+        await newUser.save();
+        res.status(201).json({ message: "User registered successfully!" });
         }
+        
+
         const passwordMatch = await bcrypt.compare(password, findUser.password);
         if(passwordMatch){
             res.status(201).send("Login successfully")
@@ -51,5 +69,5 @@ app.post('/login', async(req, res) => {
 });
 
 app.listen(port, () => {
-    console.log("Server is started on port 3000")
+    console.log('Server is started on port ${port}')
 })
