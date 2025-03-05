@@ -16,12 +16,14 @@ const pool = mariadb.createPool({
 
 })
 
-app.use(express.json());
+app.use(express.json()); //middleware to analyses incoming JSON resquests
 
 //const users = [];
 
 
+// Route for user registration
 app.post("/register", async (req, res) => {
+      //checks if the email already exists, hashing the password and adding new user to the db
   try {
     const { email, password } = req.body;
 
@@ -44,8 +46,10 @@ app.post("/register", async (req, res) => {
 });
 
 
-
+//Route for user login
 app.post("/login", async (req, res) => {
+  //retieves the user from the database, compares the provided password
+  //with the stored hashed password
   try {
     const { email, password } = req.body;
 
@@ -71,7 +75,9 @@ app.post("/login", async (req, res) => {
 });
 
 
+//Route for deleting a user by ID
 app.delete('/users/:id', async (req, res) => {
+  //retrieves the ID from the request parameters, delete the user from the db
   try {
       const userId = req.params.id;
       const conn = await pool.getConnection();
@@ -88,7 +94,10 @@ app.delete('/users/:id', async (req, res) => {
   }
 });
 
+
+//Route for getting all users
 app.get('/users',async (req, res) => {
+  //queries the database for all users and sends them as a JSON response
   try {
     const conn = await pool.getConnection();
     const rows = await conn.query('SELECT * FROM users');
