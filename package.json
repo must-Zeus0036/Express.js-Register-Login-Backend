@@ -1,7 +1,7 @@
 {
   "name": "userauth",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "app.js",
   "type": "module",
   "scripts": {
     "start": "nodemon app.js"
@@ -12,6 +12,9 @@
   "dependencies": {
     "bcrypt": "^5.1.1",
     "express": "^4.21.2",
+    "mariadb": "^3.4.0",
+    "mysql": "^2.18.1",
+    "nodeman": "^1.1.2",
     "nodemon": "^3.1.9"
   }
 }
