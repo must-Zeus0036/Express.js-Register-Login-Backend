@@ -5,4 +5,5 @@ Express.js Register & Login Backend
 * npm i bcrypt install an authentecation library it helps to hashing password
 * create a new file app.js
 * continue with coding
-* Using Thunder Client extenstion in VS insted of Postman 
+* Using Thunder Client extenstion in VS insted of Postman
+* Next step later adding mariadb and join it to the code 
