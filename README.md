@@ -6,4 +6,4 @@ Express.js Register & Login Backend
 * create a new file app.js
 * continue with coding
 * Using Thunder Client extenstion in VS insted of Postman
-* Added mariadb and join it to node.js server  
+* Added mariadb and joined it to node.js server  
